@@ -65,8 +65,6 @@ public class Main3 {
      */
     public static void optiuniMenuPrincipal() {
         Logger logger = Logger.getLogger(Main3.class.getName());
-        Scanner scanner = new Scanner(System.in);
-        int test1=0;
         createLogFile();
         int input = 0;
         boolean quit = false;
@@ -95,7 +93,8 @@ public class Main3 {
                     break;
                 case 5:
                     logger.log(Level.INFO, "Ati selectat iesirea din aplicatie");
-                    System.exit(0);
+                    quit=true;
+                    //System.exit(0);
                     break;
                 default:
                     break;
@@ -114,29 +113,29 @@ public class Main3 {
         Logger logger = Logger.getLogger(Main3.class.getName());
         createLogFile();
         Scanner scanner = new Scanner(System.in);
-        int input = 0;
+        int optionSelected = 0;
         boolean quit = false;
         do {
             try {
-                input = menuVizualizare();
+                optionSelected = menuVizualizare();
             } catch (Exception e) {
                 logger.log(Level.WARNING, "Ati introdus un caracter nepermis!");
             }
-            switch (input) {
+            switch (optionSelected) {
                 case 1:
+                    logger.log(Level.INFO, "Ati selectat vizualizare departamente");
                     List<Department> departmentList = searchAllDepartments();
                     for (Department department : departmentList) {
                         System.out.println(department);
                     }
-                    int test1;
                     do {
                         System.out.println("Doriti sa efectuati alta operatie?");
                         System.out.println("1 - DA || 2 - NU");
                         try {
-                            test1 = scanner.nextInt();
-                            if (test1 == 1)
+                            optionSelected = scanner.nextInt();
+                            if (optionSelected == 1)
                                 break;
-                            else if (test1 == 2)
+                            else if (optionSelected == 2)
                                 quit=true;
                         } catch (Exception e) {
                             logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -145,6 +144,7 @@ public class Main3 {
                     } while (!quit);
                     break;
                 case 2:
+                    logger.log(Level.INFO, "Ati selectat vizualizare joburi");
                     List<JobCategories> jobCategoriesList = searchAllJobs();
                     for (JobCategories jobCategories : jobCategoriesList) {
                         System.out.println(jobCategories);
@@ -153,10 +153,10 @@ public class Main3 {
                         System.out.println("Doriti sa efectuati alta operatie?");
                         System.out.println("1 - DA || 2 - NU");
                         try {
-                            test1 = scanner.nextInt();
-                            if (test1 == 1)
+                            optionSelected = scanner.nextInt();
+                            if (optionSelected == 1)
                                 break;
-                            else if (test1 == 2)
+                            else if (optionSelected == 2)
                                 quit=true;
                         } catch (Exception e) {
                             logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -165,6 +165,7 @@ public class Main3 {
                     } while (!quit);
                     break;
                 case 3:
+                    logger.log(Level.INFO, "Ati selectat vizualizare angajati");
                     List<Employee> employeeList = searchAllEmployee();
                     for(Employee employee: employeeList){
                         System.out.println(employee);
@@ -173,10 +174,10 @@ public class Main3 {
                         System.out.println("Doriti sa efectuati alta operatie?");
                         System.out.println("1 - DA || 2 - NU");
                         try {
-                            test1 = scanner.nextInt();
-                            if (test1 == 1)
+                            optionSelected = scanner.nextInt();
+                            if (optionSelected == 1)
                                 break;
-                            else if (test1 == 2)
+                            else if (optionSelected == 2)
                                 quit=true;
                         } catch (Exception e) {
                             logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -185,15 +186,16 @@ public class Main3 {
                     } while (!quit);
                     break;
                 case 4:
+                    logger.log(Level.INFO, "Ati selectat vizualizare angajati dintr-un departament");
                     System.out.println("Introduceti numarul departamentului: ");
-                    input = scanner.nextInt();
-                    Department department = entityManager.find(Department.class, input);
+                    optionSelected = scanner.nextInt();
+                    Department department = entityManager.find(Department.class, optionSelected);
                     if(department == null){
                         logger.log(Level.WARNING, "Departamentul introdus nu exista!");
                         break;
                     }
                     else{
-                        List<Employee> employeeList1 = searchByDepartment(input);
+                        List<Employee> employeeList1 = searchByDepartment(optionSelected);
                         for (Employee employee : employeeList1) {
                             System.out.println(employee);
                         }
@@ -202,10 +204,10 @@ public class Main3 {
                         System.out.println("Doriti sa efectuati alta operatie?");
                         System.out.println("1 - DA || 2 - NU");
                         try {
-                            test1 = scanner.nextInt();
-                            if (test1 == 1)
+                            optionSelected = scanner.nextInt();
+                            if (optionSelected == 1)
                                 break;
-                            else if (test1 == 2)
+                            else if (optionSelected == 2)
                                 quit=true;
                         } catch (Exception e) {
                             logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -214,15 +216,16 @@ public class Main3 {
                     } while (!quit);
                     break;
                 case 5:
+                    logger.log(Level.INFO, "Ati selectat vizualizare angajati ordonati alfabetic");
                     orderByName();
                     do {
                         System.out.println("Doriti sa efectuati alta operatie?");
                         System.out.println("1 - DA || 2 - NU");
                         try {
-                            test1 = scanner.nextInt();
-                            if (test1 == 1)
+                            optionSelected = scanner.nextInt();
+                            if (optionSelected == 1)
                                 break;
-                            else if (test1 == 2)
+                            else if (optionSelected == 2)
                                 quit=true;
                         } catch (Exception e) {
                             logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -231,15 +234,16 @@ public class Main3 {
                     } while (!quit);
                     break;
                 case 6:
+                    logger.log(Level.INFO, "Ati selectat vizualizare angajati ordonati dupa salariu");
                     orderBySalary();
                     do {
                         System.out.println("Doriti sa efectuati alta operatie?");
                         System.out.println("1 - DA || 2 - NU");
                         try {
-                            test1 = scanner.nextInt();
-                            if (test1 == 1)
+                            optionSelected = scanner.nextInt();
+                            if (optionSelected == 1)
                                 break;
-                            else if (test1 == 2)
+                            else if (optionSelected == 2)
                                 quit=true;
                         } catch (Exception e) {
                             logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -248,10 +252,12 @@ public class Main3 {
                     } while (!quit);
                     break;
                 case 7:
-                    optiuniMenuPrincipal();
+                    logger.log(Level.INFO, "Ati selectat inapoi");
+                    //optiuniMenuPrincipal();
+                    quit=true;
                     break;
                 case 8:
-                    quit = true;
+                    logger.log(Level.INFO, "Ati selectat iesire meniu vizualizare");
                     System.exit(0);
                     break;
                 default:
@@ -268,26 +274,26 @@ public class Main3 {
         Logger logger = Logger.getLogger(Main3.class.getName());
         createLogFile();
         Scanner scanner = new Scanner(System.in);
-        int input = 0;
+        int optionSelected = 0;
         boolean quit = false;
         do {
             try {
-                input = menu();
+                optionSelected = menu();
             } catch (Exception e) {
                 logger.log(Level.WARNING, "Ati introdus un caracter nepermis!");
             }
-            switch (input) {
+            switch (optionSelected) {
                 case 1:
+                    logger.log(Level.INFO, "Ati selectat adaugare departament nou");
                     addDepartment();
-                    int test1;
                     do {
                         System.out.println("Doriti sa efectuati alta operatie?");
                         System.out.println("1 - DA || 2 - NU");
                         try {
-                            test1 = scanner.nextInt();
-                            if (test1 == 1)
+                            optionSelected = scanner.nextInt();
+                            if (optionSelected == 1)
                                 break;
-                            else if (test1 == 2)
+                            else if (optionSelected == 2)
                                 quit=true;
                         } catch (Exception e) {
                             logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -296,15 +302,16 @@ public class Main3 {
                     } while (!quit);
                     break;
                 case 2:
+                    logger.log(Level.INFO, "Ati selectat adaugare job nou");
                     addJob();
                     do {
                         System.out.println("Doriti sa efectuati alta operatie?");
                         System.out.println("1 - DA || 2 - NU");
                         try {
-                            test1 = scanner.nextInt();
-                            if (test1 == 1)
+                            optionSelected = scanner.nextInt();
+                            if (optionSelected == 1)
                                 break;
-                            else if (test1 == 2)
+                            else if (optionSelected == 2)
                                 quit=true;
                         } catch (Exception e) {
                             logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -313,15 +320,16 @@ public class Main3 {
                     } while (!quit);
                     break;
                 case 3:
+                    logger.log(Level.INFO, "Ati selectat adaugare angajat nou");
                     addEmployee();
                     do {
                         System.out.println("Doriti sa efectuati alta operatie?");
                         System.out.println("1 - DA || 2 - NU");
                         try {
-                            test1 = scanner.nextInt();
-                            if (test1 == 1)
+                            optionSelected = scanner.nextInt();
+                            if (optionSelected == 1)
                                 break;
-                            else if (test1 == 2)
+                            else if (optionSelected == 2)
                                 quit=true;
                         } catch (Exception e) {
                             logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -330,10 +338,11 @@ public class Main3 {
                     } while (!quit);
                     break;
                 case 4:
-                    optiuniMenuPrincipal();
+                    logger.log(Level.INFO, "Ati selectat inapoi");
+                    quit=true;
                     break;
                 case 5:
-                    quit = true;
+                    logger.log(Level.INFO, "Ati selectat iesire");
                     System.exit(0);
                     break;
                 default:
@@ -352,37 +361,35 @@ public class Main3 {
         Logger logger = Logger.getLogger(Main3.class.getName());
         createLogFile();
         Scanner scanner = new Scanner(System.in);
-        int input = 0;
-        int test1=0;
+        int optionSelected = 0;
         boolean quit = false;
         do {
             try {
-                input = menu();
+                optionSelected = menu();
             } catch (Exception e) {
                 logger.log(Level.WARNING, "Ati introdus un caracter nepermis!");
             }
-            switch (input) {
+            switch (optionSelected) {
                 case 1:
+                    logger.log(Level.INFO, "Ati selectat modificarea denumirii unui departament");
                     System.out.println("Introduceti ID-ul departamentului: ");
                     try{
-                    input = scanner.nextInt();}catch(Exception e){
-                        System.out.println("Ati introdus un caracter nepermis!");
+                    optionSelected = scanner.nextInt();}catch(Exception e){
                         logger.log(Level.WARNING,"Ati introdus un caracter nepermis la selectarea departamentului pentru modificare");
                     }
-                    Department department = entityManager.find(Department.class, input);
+                    Department department = entityManager.find(Department.class, optionSelected);
                     if(department == null){
-                        System.out.println("Departamentul introdus nu exista! ");
                         logger.log(Level.WARNING, "Departamentul introdus pentru modificare nu exista!");
                     }else{
-                    modifyDepartment(input);
+                    modifyDepartment(optionSelected);
                     do {
                         System.out.println("Doriti sa efectuati alta operatie?");
                         System.out.println("1 - DA || 2 - NU");
                         try {
-                            test1 = scanner.nextInt();
-                            if (test1 == 1)
+                            optionSelected = scanner.nextInt();
+                            if (optionSelected == 1)
                                 break;
-                            else if (test1 == 2)
+                            else if (optionSelected == 2)
                                 quit=true;
                         } catch (Exception e) {
                             logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -391,26 +398,25 @@ public class Main3 {
                     } while (!quit);}
                     break;
                 case 2:
+                    logger.log(Level.INFO, "Ati selectat modificarea denumirii unui job");
                     System.out.println("Introduceti ID-ul jobului: ");
                     try{
-                    input = scanner.nextInt();}catch(Exception e){
-                        System.out.println("Ati introdus un caracter nepermis!");
+                    optionSelected = scanner.nextInt();}catch(Exception e){
                         logger.log(Level.WARNING, "Ati introdus un caracter nepermis la selectarea jobului pentru modificare");
                     }
-                    JobCategories jobCategories = entityManager.find(JobCategories.class, input);
+                    JobCategories jobCategories = entityManager.find(JobCategories.class, optionSelected);
                     if(jobCategories == null){
-                        System.out.println("Jobul introdus pentru modificare este inexistent!");
                         logger.log(Level.WARNING, "Eroare la introducerea id-ului pentru modificare jobului");
                     }else{
-                    modifyJob(input);
+                    modifyJob(optionSelected);
                     do {
                         System.out.println("Doriti sa efectuati alta operatie?");
                         System.out.println("1 - DA || 2 - NU");
                         try {
-                            test1 = scanner.nextInt();
-                            if (test1 == 1)
+                            optionSelected = scanner.nextInt();
+                            if (optionSelected == 1)
                                 break;
-                            else if (test1 == 2)
+                            else if (optionSelected == 2)
                                 quit=true;
                         } catch (Exception e) {
                             logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -419,26 +425,25 @@ public class Main3 {
                     } while (!quit);}
                     break;
                 case 3:
+                    logger.log(Level.INFO, "Ati selectat modificarea denumirii unui angajat");
                     System.out.println("Introduceti ID-ul angajatului: ");
                     try{
-                    input = scanner.nextInt();}catch(Exception e){
-                        System.out.println("Ati introdus un caracter nepermis!");
+                    optionSelected = scanner.nextInt();}catch(Exception e){
                         logger.log(Level.WARNING, "S-a introdus un caracter nepermis la id-ul angajatului pentru modificare");
                     }
-                    Employee employee = entityManager.find(Employee.class, input);
+                    Employee employee = entityManager.find(Employee.class, optionSelected);
                     if(employee == null){
-                        System.out.println("Nu exista nici un angajat cu aces ID");
                         logger.log(Level.WARNING, "Id-ul angajatului introdus pentru modificare nu exista");
                     }else{
-                    modifyEmployee(input);
+                    modifyEmployee(optionSelected);
                     do {
                         System.out.println("Doriti sa efectuati alta operatie?");
                         System.out.println("1 - DA || 2 - NU");
                         try {
-                            test1 = scanner.nextInt();
-                            if (test1 == 1)
+                            optionSelected = scanner.nextInt();
+                            if (optionSelected == 1)
                                 break;
-                            else if (test1 == 2)
+                            else if (optionSelected == 2)
                                 quit=true;
                         } catch (Exception e) {
                             logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -447,10 +452,11 @@ public class Main3 {
                     } while (!quit);}
                     break;
                 case 4:
-                    optiuniMenuPrincipal();
+                    logger.log(Level.INFO, "Ati selectat inapoi la meniul principal");
+                    quit=true;
                     break;
                 case 5:
-                    quit = true;
+                    logger.log(Level.INFO, "Ati selectat iesirea din aplicatie");
                     System.exit(0);
                     break;
             }
@@ -467,37 +473,35 @@ public class Main3 {
         Logger logger = Logger.getLogger(Main3.class.getName());
         createLogFile();
         Scanner scanner = new Scanner(System.in);
-        int test1;
-        int input = 0;
+        int optionSelected = 0;
         boolean quit = false;
         do {
             try {
-                input = menu();
+                optionSelected = menu();
             } catch (Exception e) {
                 logger.log(Level.WARNING, "Ati introdus un caracter nepermis!");
             }
-            switch (input) {
+            switch (optionSelected) {
                 case 1:
+                    logger.log(Level.INFO, "Ati selectat stergerea unui departament");
                     System.out.println("Introduceti ID-ul departamentului: ");
                     try{
-                        input = scanner.nextInt();}catch(Exception e){
-                        System.out.println("Ati introdus un caracter nepermis!");
+                        optionSelected = scanner.nextInt();}catch(Exception e){
                         logger.log(Level.WARNING,"Ati introdus un caracter nepermis la selectarea departamentului pentru stergere");
                     }
-                    Department department = entityManager.find(Department.class, input);
+                    Department department = entityManager.find(Department.class, optionSelected);
                     if(department == null){
-                        System.out.println("Departamentul introdus nu exista! ");
                         logger.log(Level.WARNING, "Departamentul introdus pentru stergere nu exista!");
                     }else{
-                        deleteDepartment(input);
+                        deleteDepartment(optionSelected);
                         do {
                             System.out.println("Doriti sa efectuati alta operatie?");
                             System.out.println("1 - DA || 2 - NU");
                             try {
-                                test1 = scanner.nextInt();
-                                if (test1 == 1)
+                                optionSelected = scanner.nextInt();
+                                if (optionSelected == 1)
                                     break;
-                                else if (test1 == 2)
+                                else if (optionSelected == 2)
                                     quit=true;
                             } catch (Exception e) {
                                 logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -506,26 +510,25 @@ public class Main3 {
                         } while (!quit);}
                     break;
                 case 2:
+                    logger.log(Level.INFO, "Ati selectat stergerea unui job");
                     System.out.println("Introduceti ID-ul jobului: ");
                     try{
-                        input = scanner.nextInt();}catch(Exception e){
-                        System.out.println("Ati introdus un caracter nepermis!");
+                        optionSelected = scanner.nextInt();}catch(Exception e){
                         logger.log(Level.WARNING, "Ati introdus un caracter nepermis la selectarea jobului pentru stergere");
                     }
-                    JobCategories jobCategories = entityManager.find(JobCategories.class, input);
+                    JobCategories jobCategories = entityManager.find(JobCategories.class, optionSelected);
                     if(jobCategories == null){
-                        System.out.println("Jobul introdus pentru modificare este inexistent!");
                         logger.log(Level.WARNING, "Eroare la introducerea id-ului pentru stergerea jobului");
                     }else{
-                        deleteJob(input);
+                        deleteJob(optionSelected);
                         do {
                             System.out.println("Doriti sa efectuati alta operatie?");
                             System.out.println("1 - DA || 2 - NU");
                             try {
-                                test1 = scanner.nextInt();
-                                if (test1 == 1)
+                                optionSelected = scanner.nextInt();
+                                if (optionSelected == 1)
                                     break;
-                                else if (test1 == 2)
+                                else if (optionSelected == 2)
                                     quit=true;
                             } catch (Exception e) {
                                 logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -534,26 +537,25 @@ public class Main3 {
                         } while (!quit);}
                     break;
                 case 3:
+                    logger.log(Level.INFO, "Ati selectat stergerea unui angajat");
                     System.out.println("Introduceti ID-ul angajatului: ");
                     try{
-                        input = scanner.nextInt();}catch(Exception e){
-                        System.out.println("Ati introdus un caracter nepermis!");
+                        optionSelected = scanner.nextInt();}catch(Exception e){
                         logger.log(Level.WARNING, "S-a introdus un caracter nepermis la id-ul angajatului pentru stergere");
                     }
-                    Employee employee = entityManager.find(Employee.class, input);
+                    Employee employee = entityManager.find(Employee.class, optionSelected);
                     if(employee == null){
-                        System.out.println("Nu exista nici un angajat cu aces ID");
                         logger.log(Level.WARNING, "Id-ul angajatului introdus pentru stergere nu exista");
                     }else{
-                        deleteEmployee(input);
+                        deleteEmployee(optionSelected);
                         do {
                             System.out.println("Doriti sa efectuati alta operatie?");
                             System.out.println("1 - DA || 2 - NU");
                             try {
-                                test1 = scanner.nextInt();
-                                if (test1 == 1)
+                                optionSelected = scanner.nextInt();
+                                if (optionSelected == 1)
                                     break;
-                                else if (test1 == 2)
+                                else if (optionSelected == 2)
                                     quit=true;
                             } catch (Exception e) {
                                 logger.log(Level.SEVERE, "Ati introdus un caracter nepermis!");
@@ -562,9 +564,13 @@ public class Main3 {
                         } while (!quit);}
                     break;
                 case 4:
-                    optiuniMenuPrincipal();
+                    logger.log(Level.INFO, "Ati selectat inapoi la meniul principal");
+                    quit=true;
+                    break;
                 case 5:
-                    quit = true;
+                    logger.log(Level.INFO, "Ati selectat iesirea din aplicatie");
+                    System.exit(0);
+                    break;
             }
         } while (!quit);
     }
@@ -953,25 +959,26 @@ public class Main3 {
         int option;
         int choice;
         int flag;
+        String newLine = System.getProperty("line.separator");
         System.out.println(employee);
-        System.out.println("Alegeti campul pe care vreti sa-l modificati:" +
-                "1 - Nume" +
-                "2 - Prenume" +
-                "3 - JobID" +
-                "4 - DepartmentID" +
-                "5 - Manager" +
-                "6 - Start Date" +
-                "7 - End Date" +
-                "8 - Active" +
-                "9 - Address" +
-                "10 - Postal Code" +
-                "11 - Telephone" +
-                "12 - Email" +
-                "13 - Birthday" +
-                "14 - Children" +
-                "15 - Salary" +
-                "16 - Studies" +
-                "17 - SSN" +
+        System.out.println("Alegeti campul pe care vreti sa-l modificati:" + newLine+
+                "1 - Nume" +newLine+
+                "2 - Prenume" +newLine+
+                "3 - JobID" +newLine+
+                "4 - DepartmentID" +newLine+
+                "5 - Manager" +newLine+
+                "6 - Start Date" +newLine+
+                "7 - End Date" +newLine+
+                "8 - Active" +newLine+
+                "9 - Address" +newLine+
+                "10 - Postal Code" +newLine+
+                "11 - Telephone" +newLine+
+                "12 - Email" +newLine+
+                "13 - Birthday" +newLine+
+                "14 - Children" +newLine+
+                "15 - Salary" +newLine+
+                "16 - Studies" +newLine+
+                "17 - SSN" +newLine+
                 "18 - Driving License");
         option = scanner.nextInt();
         switch (option) {
