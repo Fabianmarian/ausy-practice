@@ -43,4 +43,4 @@ Stergerea informatiilor din baza de date
 - stergerea unui job(este posibil doar daca nu exista nici un angajat cu acel job)
 - stergerea unui angajat
 
-Logger pentru majoritatea actiunilor realizate, acestea se salveaza intr-un fisier
+Logger pentru majoritatea actiunilor realizate, acestea se salveaza intr-un fisier in folderul principal al proiectului
