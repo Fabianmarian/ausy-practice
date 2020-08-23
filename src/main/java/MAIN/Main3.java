@@ -886,6 +886,8 @@ public class Main3 {
     public static void modifyDepartment(int id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("my-persistence-unit");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        List<Department> departmentList = searchAllDepartments();
+        int flag=0;
         Logger logger = Logger.getLogger(Main3.class.getName());
         createLogFile();
         Scanner scanner = new Scanner(System.in);
@@ -899,11 +901,22 @@ public class Main3 {
             System.out.println("Introduceti noul nume: ");
             String name = scanner.next();
             try {
+                for(Department department1: departmentList){
+                    if(department1.getName().equals(name)){
+                        flag=1;
+                        break;
+                    }
+                }
+                if(flag==1){
+                    logger.log(Level.WARNING, "Denumirea introdusa pentru departament exista deja in baza de date!");
+                    modificare();
+                }
                 department.setName(name);
                 entityManager.getTransaction().commit();
                 entityManager.close();
                 logger.log(Level.INFO, "Denumire schimbata cu succes!");
                 System.out.println(department);
+
             } catch (Exception e) {
                 entityManager.getTransaction().rollback();
                 logger.log(Level.WARNING, "Eroare la modificare denumire");
@@ -917,6 +930,8 @@ public class Main3 {
     public static void modifyJob(int id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("my-persistence-unit");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        List<JobCategories> jobsList = searchAllJobs();
+        int flag=0;
         Logger logger = Logger.getLogger(Main3.class.getName());
         createLogFile();
         Scanner scanner = new Scanner(System.in);
@@ -930,6 +945,16 @@ public class Main3 {
             System.out.println("Introduceti noul nume: ");
             String name = scanner.next();
             try {
+                for(JobCategories jobCategories: jobsList){
+                    if(jobCategories.getName().equals(name)){
+                        flag=1;
+                        break;
+                    }
+                }
+                if(flag==1){
+                    logger.log(Level.WARNING, "Denumirea introdusa pentru job exista deja in baza de date!");
+                    modificare();
+                }
                 job.setName(name);
                 entityManager.getTransaction().commit();
                 entityManager.close();
