@@ -714,7 +714,7 @@ public class Main3 {
                 }
             }
             if(flag==1){
-                addDepartment();
+                adaugare();
                 System.out.println("Acest departament exista deja in baza de date!");
                 logger.log(Level.WARNING,"Numele introdus pentru adaugarea unui departament exista deja!");
             }
@@ -751,7 +751,7 @@ public class Main3 {
                 }
             }
             if(flag==1){
-                addJob();
+                adaugare();
                 System.out.println("Acest jon exista deja in baza de date!");
                 logger.log(Level.WARNING,"Numele introdus pentru adaugarea unui job exista deja!");
             }
@@ -806,7 +806,7 @@ public class Main3 {
             if (flag == 0) {
                 logger.log(Level.WARNING, "Job ID incorrect");
                 System.out.println("Adaugati din nou informatiile angajatului");
-                addEmployee();
+                adaugare();
             }
             System.out.println("Introduceti id-ul departamentului: ");
             id = scanner.nextInt();
@@ -820,7 +820,7 @@ public class Main3 {
             if (flag == 0) {
                 logger.log(Level.WARNING, "Department ID incorrect");
                 System.out.println("Adaugati din nou informatiile angajatului");
-                addEmployee();
+                adaugare();
             }
             System.out.println("Introduceti start date(yyyy-mm-dd): ");
             name = scanner.next();
@@ -864,6 +864,7 @@ public class Main3 {
             entityManager.close();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
+            adaugare();
             logger.log(Level.WARNING, "Eroare la introducerea angajatului, verificati datele introduse");
         }
     }
