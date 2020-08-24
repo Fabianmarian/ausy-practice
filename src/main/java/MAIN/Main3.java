@@ -217,7 +217,10 @@ public class Main3 {
                     break;
                 case 5:
                     logger.log(Level.INFO, "Ati selectat vizualizare angajati ordonati alfabetic");
-                    orderByName();
+                    List<Employee> employees = orderByName();
+                    for (Employee employee : employees) {
+                        System.out.println(employee);
+                    }
                     do {
                         System.out.println("Doriti sa efectuati alta operatie?");
                         System.out.println("1 - DA || 2 - NU");
@@ -235,7 +238,11 @@ public class Main3 {
                     break;
                 case 6:
                     logger.log(Level.INFO, "Ati selectat vizualizare angajati ordonati dupa salariu");
-                    orderBySalary();
+                    List<Employee> employees1 = orderBySalary();
+                    for(Employee employee: employees1)
+                    {
+                        System.out.println(employee);
+                    }
                     do {
                         System.out.println("Doriti sa efectuati alta operatie?");
                         System.out.println("1 - DA || 2 - NU");
@@ -657,9 +664,10 @@ public class Main3 {
     }
 
     /**
-     *  Afiseaza toti angajatii din baza de date in ordine alfabetica dupa numele de familie
+     * Creeaza o lista cu toti angajatii din baza de date in ordine alfabetica dupa numele de familie
+     * @return list with all employees from database ordered by last name
      */
-    public static void orderByName() {
+    public static List<Employee> orderByName() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("my-persistence-unit");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -667,17 +675,16 @@ public class Main3 {
 
         entityManager.getTransaction().begin();
         List<Employee> result = entityManager.createQuery(query, Employee.class).getResultList();
-        for (Employee employee : result) {
-            System.out.println(employee);
 
-        }
         entityManager.getTransaction().commit();
         entityManager.close();
+        return result;
     }
     /**
-     * Afiseaza toti angajatii din baza de date crescator in functie de salariu
+     * Creeaza o lista cu toti angajatii, ordonati dupa salariu;
+     * @return list with all employees from database ordered by salary
      */
-    public static void orderBySalary() {
+    public static List<Employee> orderBySalary() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("my-persistence-unit");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -685,12 +692,9 @@ public class Main3 {
 
         entityManager.getTransaction().begin();
         List<Employee> result = entityManager.createQuery(query, Employee.class).getResultList();
-        for (Employee employee : result) {
-            System.out.println(employee);
-
-        }
         entityManager.getTransaction().commit();
         entityManager.close();
+        return result;
     }
 
     //---------------------------------------------------------------------------------------
@@ -1044,6 +1048,7 @@ public class Main3 {
                     if (choice == job.getId()) {
                         flag = 1;
                         employee.setJobCategories(job);
+                        logger.log(Level.INFO, "Job id schimbat cu succes!");
                     }
                 }}catch(Exception e){
                     System.out.println("Eroare la schimbare job id");
@@ -1063,6 +1068,7 @@ public class Main3 {
                     if (choice == department.getId()) {
                         flag = 1;
                         employee.setDepartment(department);
+                        logger.log(Level.INFO, "Departament schimbat cu succes!");
                     }
                 }}catch(Exception e){
                     System.out.println("Eroare la schimbare department id andajat");
@@ -1078,7 +1084,9 @@ public class Main3 {
                 boolean bool;
                 try{
                 bool = scanner.nextBoolean();
-                employee.setManager(bool);}catch(Exception e){
+                employee.setManager(bool);
+                logger.log(Level.INFO, "Status manager schimbat cu succes!");}
+                catch(Exception e){
                     logger.log(Level.WARNING, "Valoare introdusa gresit pentru modificare status manager!");
                 }
                 break;
@@ -1091,7 +1099,9 @@ public class Main3 {
                 name = scanner.next();
                 formatter = formatter.withLocale(Locale.ENGLISH);
                 date = LocalDate.parse(name, formatter);
-                employee.setStartDate(date);}catch(Exception e){
+                employee.setStartDate(date);
+                logger.log(Level.INFO, "Data de inceput schimbata cu succes!");}
+                catch(Exception e){
                     logger.log(Level.WARNING, "Eroare la modificare data inceput");
                 }
                 break;
@@ -1102,7 +1112,9 @@ public class Main3 {
                 formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 formatter = formatter.withLocale(Locale.ENGLISH);
                 date = LocalDate.parse(name, formatter);
-                employee.setStartDate(date);}catch (Exception e){
+                employee.setEndDate(date);
+                logger.log(Level.INFO, "Data sfarsit schimbata cu succes!");}
+                catch (Exception e){
                     logger.log(Level.WARNING, "Eroare la modificare data sfarsit");
                 }
                 break;
@@ -1110,7 +1122,9 @@ public class Main3 {
                 System.out.println("Modificati daca angajatul este activ sau nu(true sau false)");
                 try{
                 bool = scanner.nextBoolean();
-                employee.setActive(bool);}catch(Exception e){
+                employee.setActive(bool);
+                logger.log(Level.INFO, "Status angajat schimbat cu succes!"); }
+                catch(Exception e){
                     logger.log(Level.WARNING, "Eroare la modificare status angajat");
                 }
                 break;
@@ -1118,7 +1132,9 @@ public class Main3 {
                 System.out.println("Modificati adresa");
                 try{
                 name = scanner.next();
-                employee.setAddress(name);}catch(Exception e){
+                employee.setAddress(name);
+                    logger.log(Level.INFO, "Adresa schimbata cu succes!");}
+                catch(Exception e){
                     logger.log(Level.WARNING, "Eroare la modificare adresa");
                 }
                 break;
@@ -1126,7 +1142,9 @@ public class Main3 {
                 System.out.println("Modificati codul postal");
                 try{
                 name = scanner.next();
-                employee.setPostalCode(name);}catch(Exception e){
+                employee.setPostalCode(name);
+                logger.log(Level.INFO, "Cod postal schimbat cu succes!");}
+                catch(Exception e){
                     logger.log(Level.WARNING, "Eroare la modificare cod postal");
                 }
                 break;
@@ -1134,7 +1152,9 @@ public class Main3 {
                 System.out.println("Modificati numarul de telefon");
                 try{
                 name = scanner.next();
-                employee.setTelephone(name);}catch(Exception e){
+                employee.setTelephone(name);
+                logger.log(Level.INFO, "Nr telefon schimbat cu succes!");}
+                catch(Exception e){
                     logger.log(Level.WARNING, "Eroare la modificare numar telefon");
                 }
                 break;
@@ -1142,7 +1162,9 @@ public class Main3 {
                 System.out.println("Modificati emailul");
                 try{
                 name = scanner.next();
-                employee.setEmail(name);}catch(Exception e){
+                employee.setEmail(name);
+                logger.log(Level.INFO, "Email schimbat cu succes!");}
+                catch(Exception e){
                     logger.log(Level.WARNING, "Eroare la modificare email");
                 }
                 break;
@@ -1153,7 +1175,9 @@ public class Main3 {
                 formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 formatter = formatter.withLocale(Locale.ENGLISH);
                 date = LocalDate.parse(name, formatter);
-                employee.setBirthday(date);}catch (Exception e){
+                employee.setBirthday(date);
+                logger.log(Level.INFO, "Data de nastere schimbata cu succes!");}
+                catch (Exception e){
                     logger.log(Level.WARNING, "Eroare la modificare data de nastere");
                 }
                 break;
@@ -1161,7 +1185,9 @@ public class Main3 {
                 System.out.println("Modificati nr de copii: ");
                 try{
                 int children = scanner.nextInt();
-                employee.setNoChildren(children);}catch (Exception e){
+                employee.setNoChildren(children);
+                logger.log(Level.INFO, "Nr copii schimbat cu succes!");}
+                catch (Exception e){
                     logger.log(Level.WARNING, "Eroare la modificare nr de copii");
                 }
                 break;
@@ -1169,7 +1195,9 @@ public class Main3 {
                 System.out.println("Modificati salariul: ");
                 try{
                 double salary = scanner.nextDouble();
-                employee.setSalary(salary);}catch (Exception e){
+                employee.setSalary(salary);
+                logger.log(Level.INFO, "Salariu schimbat cu succes!");}
+                catch (Exception e){
                     logger.log(Level.WARNING, "Eroare la modificare salariu");
                 }
                 break;
@@ -1177,7 +1205,9 @@ public class Main3 {
                 System.out.println("Modificati studiile: ");
                 try{
                 name = scanner.next();
-                employee.setStudies(name);}catch(Exception e){
+                employee.setStudies(name);
+                logger.log(Level.INFO, "Studii modificate cu succes!");}
+                catch(Exception e){
                     logger.log(Level.WARNING, "Eroare la modificare studii");
                 }
                 break;
@@ -1185,7 +1215,9 @@ public class Main3 {
                 System.out.println("Modificati SSN: ");
                 try{
                 name = scanner.next();
-                employee.setSocialSecurityNumber(name);}catch (Exception e){
+                employee.setSocialSecurityNumber(name);
+                logger.log(Level.INFO, "SSN schimbat cu succes!");}
+                catch (Exception e){
                     logger.log(Level.WARNING, "Eroare la modificare SSN");
                 }
                 break;
@@ -1193,7 +1225,9 @@ public class Main3 {
                 System.out.println("Modificat status permis: ");
                 try{
                 bool = scanner.nextBoolean();
-                employee.setHasDrivingLicense(bool);}catch(Exception e){
+                employee.setHasDrivingLicense(bool);
+                logger.log(Level.INFO, "Status permis schimbat cu succes!");}
+                catch(Exception e){
                     logger.log(Level.WARNING, "Eroare la modificare status permis");
                 }
                 break;
@@ -1201,7 +1235,6 @@ public class Main3 {
     }
     //---------------------------------------------------------------------------------------
     //endregion
-
 
     //region Stergere obiect
     //---------------------------------------------------------------------------------------
@@ -1317,7 +1350,6 @@ public class Main3 {
     }
     //---------------------------------------------------------------------------------------
     //endregion
-
 
     //region Utility tools
     /**

@@ -2,7 +2,6 @@ package Entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "employee")
@@ -24,7 +23,7 @@ public class Employee {
     private JobCategories jobCategories;
     private boolean isManager;
     private LocalDate startDate;
-    private Date endDate;
+    private LocalDate endDate;
     @Column(name = "active")
     private boolean isActive;
     private String address;
@@ -95,11 +94,11 @@ public class Employee {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
